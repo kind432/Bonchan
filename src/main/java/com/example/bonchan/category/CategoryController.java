@@ -1,23 +1,46 @@
 package com.example.bonchan.category;
 
 
+import com.example.bonchan.category.models.CategoriesResponse;
+import com.example.bonchan.category.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
-@RequestMapping(path="cat/v1")
+@RequestMapping(path ="categories")
 public class CategoryController {
 
-    private CategoryService catserv;
-
+    private CategoryService categoryService;
     @Autowired
-    public CategoryController(CategoryService catserv) {
-        this.catserv = catserv;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
-    @RequestMapping(path="/cat")
-    public Category me() {
-        return catserv.getCategoryById(1);
+
+    @GetMapping(path ="/getAllCategories")
+    public CategoriesResponse getAllCategories() {
+        return new CategoriesResponse(categoryService.getAllCategories());
+    }
+
+    @GetMapping(path ="/{id}")
+    public Optional<Category> getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    @PostMapping(path = "/create")
+    public Category createCategory(@RequestBody Category request) {
+        return categoryService.createCategory(request);
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteCategoryById(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+    }
+
+    @PutMapping(path = "/update")
+    public Category updateCategory(@RequestBody Category request) {
+        return categoryService.updateCategory(request);
     }
 }
