@@ -19,7 +19,7 @@ public class CategoryController {
     }
 
 
-    @GetMapping(path ="/getAllCategories")
+    @GetMapping(path ="/")
     public CategoriesResponse getAllCategories() {
         return new CategoriesResponse(categoryService.getAllCategories());
     }
