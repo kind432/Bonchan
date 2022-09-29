@@ -1,4 +1,4 @@
-package com.example.bonchan.category.models;
+package com.example.bonchan.category;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 

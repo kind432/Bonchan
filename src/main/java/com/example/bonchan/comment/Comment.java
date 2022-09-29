@@ -1,6 +1,6 @@
-package com.example.bonchan.comment.models;
+package com.example.bonchan.comment;
 
-import com.example.bonchan.theme.models.Theme;
+import com.example.bonchan.theme.Theme;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

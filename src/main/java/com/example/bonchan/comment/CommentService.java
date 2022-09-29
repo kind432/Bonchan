@@ -1,6 +1,5 @@
 package com.example.bonchan.comment;
 
-import com.example.bonchan.comment.models.Comment;
 import com.example.bonchan.theme.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,6 @@
 package com.example.bonchan.category;
 
 
-import com.example.bonchan.category.models.CategoriesResponse;
-import com.example.bonchan.category.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +18,8 @@ public class CategoryController {
 
 
     @GetMapping(path ="/")
-    public CategoriesResponse getAllCategories() {
-        return new CategoriesResponse(categoryService.getAllCategories());
+    public Iterable<Category> getAllCategories() {
+        return categoryService.getAllCategories();
     }
 
     @GetMapping(path ="/{id}")

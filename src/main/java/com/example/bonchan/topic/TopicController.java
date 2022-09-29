@@ -1,7 +1,5 @@
 package com.example.bonchan.topic;
 
-import com.example.bonchan.topic.models.Topic;
-import com.example.bonchan.topic.models.TopicsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +13,8 @@ public class TopicController {
     }
 
     @GetMapping(path = "/{categoryId}")
-    public TopicsResponse getTopicsByCategoryId(@PathVariable Long categoryId) {
-        return new TopicsResponse(topicService.getTopicsByCategoryId(categoryId));
+    public Iterable<Topic> getTopicsByCategoryId(@PathVariable Long categoryId) {
+        return topicService.getTopicsByCategoryId(categoryId);
     }
 
     @PostMapping(path = "/create")

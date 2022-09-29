@@ -1,6 +1,6 @@
-package com.example.bonchan.theme.models;
+package com.example.bonchan.theme;
 
-import com.example.bonchan.topic.models.Topic;
+import com.example.bonchan.topic.Topic;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

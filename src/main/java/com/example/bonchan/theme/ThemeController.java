@@ -1,7 +1,5 @@
 package com.example.bonchan.theme;
 
-import com.example.bonchan.theme.models.Theme;
-import com.example.bonchan.theme.models.ThemesResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +13,8 @@ public class ThemeController {
     }
 
     @GetMapping(path = "/{topicId}")
-    public ThemesResponse getThemesByTopicId(@PathVariable Long topicId) {
-        return new ThemesResponse(themeService.getThemesByTopicId(topicId));
+    public Iterable<Theme> getThemesByTopicId(@PathVariable Long topicId) {
+        return themeService.getThemesByTopicId(topicId);
     }
 
     @PostMapping(path = "/create")

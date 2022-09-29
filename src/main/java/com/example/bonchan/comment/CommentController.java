@@ -1,7 +1,5 @@
 package com.example.bonchan.comment;
 
-import com.example.bonchan.comment.models.Comment;
-import com.example.bonchan.comment.models.CommentsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +13,8 @@ public class CommentController {
     }
 
     @GetMapping(path = "/{themeId}")
-    public CommentsResponse getCommentsByThemeId(@PathVariable Long themeId) {
-        return new CommentsResponse(commentService.getCommentsByThemeId(themeId));
+    public Iterable<Comment> getCommentsByThemeId(@PathVariable Long themeId) {
+        return commentService.getCommentsByThemeId(themeId);
     }
 
     @PostMapping(path = "/create")

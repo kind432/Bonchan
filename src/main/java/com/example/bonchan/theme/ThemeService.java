@@ -1,6 +1,5 @@
 package com.example.bonchan.theme;
 
-import com.example.bonchan.theme.models.Theme;
 import com.example.bonchan.topic.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

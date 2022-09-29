@@ -1,6 +1,6 @@
-package com.example.bonchan.topic.models;
+package com.example.bonchan.topic;
 
-import com.example.bonchan.category.models.Category;
+import com.example.bonchan.category.Category;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;

@@ -1,7 +1,6 @@
 package com.example.bonchan.topic;
 
 import com.example.bonchan.category.CategoryRepository;
-import com.example.bonchan.topic.models.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
