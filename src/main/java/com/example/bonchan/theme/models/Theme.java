@@ -14,18 +14,18 @@ public class Theme {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "description")
-    private String description;
+    @Column(name = "content")
+    private String content;
 
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "topic_id", referencedColumnName = "id")
     private Topic topic;
 
-    public Theme(Long id, String name, String description, Topic topic) {
+    public Theme(Long id, String name, String content, Topic topic) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.content = content;
         this.topic = topic;
     }
 
@@ -49,12 +49,12 @@ public class Theme {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Topic getTopic() {
