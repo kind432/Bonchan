@@ -12,9 +12,9 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping(path = "/{themeId}")
-    public Iterable<Comment> getCommentsByThemeId(@PathVariable Long themeId) {
-        return commentService.getCommentsByThemeId(themeId);
+    @GetMapping(path = "/{topicId}")
+    public Iterable<Comment> getCommentsByTopicId(@PathVariable Long topicId) {
+        return commentService.getCommentsByTopicId(topicId);
     }
 
     @PostMapping(path = "/create")

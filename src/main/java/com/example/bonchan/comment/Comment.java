@@ -1,6 +1,6 @@
 package com.example.bonchan.comment;
 
-import com.example.bonchan.theme.Theme;
+import com.example.bonchan.topic.Topic;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -30,19 +30,19 @@ public class Comment {
 
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "theme_id", referencedColumnName = "id")
-    private Theme theme;
+    @JoinColumn(name = "topic_id", referencedColumnName = "id")
+    private Topic topic;
 
     public Comment() {
 
     }
 
-    public Comment(Long id, String message, Timestamp createdAt, Timestamp updatedAt, Theme theme) {
+    public Comment(Long id, String message, Timestamp createdAt, Timestamp updatedAt, Topic topic) {
         this.id = id;
         this.message = message;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.theme = theme;
+        this.topic = topic;
     }
 
     public Long getId() {
@@ -77,11 +77,11 @@ public class Comment {
         this.updatedAt = updatedAt;
     }
 
-    public Theme getTheme() {
-        return theme;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setTheme(Theme theme) {
-        this.theme = theme;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }

@@ -7,5 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface TopicRepository extends CrudRepository<Topic, Long> {
-    Iterable<Topic> findByCategoryId(Long categoryId);
+    Iterable<Topic> findByForumId(Long forumId);
 }
