@@ -16,11 +16,12 @@ public class TopicService {
         this.topicRepository = topicRepository;
         this.forumRepository = forumRepository;
     }
-
+    public Iterable<Topic> getAllTopics() {
+        return topicRepository.findAll();
+    }
     public Iterable<Topic> getTopicsByForumId(Long forumId) {
         return topicRepository.findByForumId(forumId);
     }
-
     public Topic createTopic(Topic topic) {
         var forum = forumRepository.findById(topic.getForum().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));

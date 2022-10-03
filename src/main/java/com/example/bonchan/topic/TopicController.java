@@ -12,6 +12,10 @@ public class TopicController {
         this.topicService = topicService;
     }
 
+    @GetMapping(path = "/")
+    public Iterable<Topic> getAllTopics() {
+        return topicService.getAllTopics();
+    }
     @GetMapping(path = "/{forumId}")
     public Iterable<Topic> getTopicsByForumId(@PathVariable Long forumId) {
         return topicService.getTopicsByForumId(forumId);
