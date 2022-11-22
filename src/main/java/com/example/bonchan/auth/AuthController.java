@@ -1,5 +1,9 @@
 package com.example.bonchan.auth;
 
+import com.example.bonchan.payload.request.LoginRequest;
+import com.example.bonchan.payload.request.SignupRequest;
+import com.example.bonchan.payload.response.MessageResponse;
+import com.example.bonchan.payload.response.JwtResponse;
 import com.example.bonchan.role.ERole;
 import com.example.bonchan.role.Role;
 import com.example.bonchan.role.RoleService;
@@ -18,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,29 +47,27 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/sign-in")
-    //todo: add model login
-    public ResponseEntity<?> authenticateUser(@RequestBody User loginRequest) {
-
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(jwtCookie.toString());
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles));
     }
 
     @PostMapping("/sign-up")
-    //todo: add model register
-    public ResponseEntity<?> registerUser(@RequestBody User signUpRequest) {
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 
         if (userService.CheckUser(signUpRequest.getEmail())) {
             return ResponseEntity.badRequest().body("Error: User already exist!");
@@ -77,7 +78,7 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getUsername());
 
-        Set<String> strRoles = Collections.singleton(signUpRequest.getRoles().toString());
+        Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -103,14 +104,6 @@ public class AuthController {
 
         user.setRoles(roles);
         User us = userService.CreateUser(user);
-
         return ResponseEntity.ok(us);
-    }
-
-    @PostMapping("/sign-out")
-    public ResponseEntity<?> logoutUser() {
-        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body("You've been signed out!");
     }
 }

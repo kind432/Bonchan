@@ -16,25 +16,25 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Optional<Category> getCategoryById(Long id) {
+    public Optional<Category> GetCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
 
-    public Iterable<Category> getAllCategories() {
+    public Iterable<Category> GetAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public Category createCategory(Category category) {
+    public Category CreateCategory(Category category) {
         return categoryRepository.save(category);
     }
 
-    public void deleteCategory(Long id) {
+    public void DeleteCategory(Long id) {
         var category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
         categoryRepository.deleteById(id);
     }
 
-    public Category updateCategory(Category category) {
+    public Category UpdateCategory(Category category) {
         var cat = categoryRepository.findById(category.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
         return categoryRepository.save(category);

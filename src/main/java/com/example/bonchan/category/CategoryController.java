@@ -2,10 +2,12 @@ package com.example.bonchan.category;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(path ="categories")
 public class CategoryController {
@@ -16,29 +18,29 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-
     @GetMapping(path ="/")
-    public Iterable<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public Iterable<Category> GetAllCategories() {
+        return categoryService.GetAllCategories();
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping(path ="/{id}")
-    public Optional<Category> getCategoryById(@PathVariable Long id) {
-        return categoryService.getCategoryById(id);
+    public Optional<Category> GetCategoryById(@PathVariable Long id) {
+        return categoryService.GetCategoryById(id);
     }
 
-    @PostMapping(path = "/create")
-    public Category createCategory(@RequestBody Category request) {
-        return categoryService.createCategory(request);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping(path = "/")
+    public Category CreateCategory(@RequestBody Category request) {
+        return categoryService.CreateCategory(request);
     }
-
-    @DeleteMapping(path = "/delete/{id}")
-    public void deleteCategoryById(@PathVariable Long id) {
-        categoryService.deleteCategory(id);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(path = "/{id}")
+    public void DeleteCategoryById(@PathVariable Long id) {
+        categoryService.DeleteCategory(id);
     }
-
-    @PutMapping(path = "/update")
-    public Category updateCategory(@RequestBody Category request) {
-        return categoryService.updateCategory(request);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping(path = "/")
+    public Category UpdateCategory(@RequestBody Category request) {
+        return categoryService.UpdateCategory(request);
     }
 }
