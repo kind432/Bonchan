@@ -3,6 +3,8 @@ package com.example.bonchan.forum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path ="forums")
 public class ForumController {
@@ -15,6 +17,11 @@ public class ForumController {
     @GetMapping(path = "/{subcategoryId}")
     public Iterable<Forum> getForumsBySubcategoryId(@PathVariable Long subcategoryId) {
         return forumService.getForumsBySubcategoryId(subcategoryId);
+    }
+
+    @GetMapping(path = "/getForum/{forumId}")
+    public Optional<Forum> getForumById(@PathVariable Long forumId) {
+        return forumService.getForumById(forumId);
     }
 
     @PostMapping(path = "/create")

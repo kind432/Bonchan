@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @Service
 public class TopicService {
     private final TopicRepository topicRepository;
@@ -16,28 +18,32 @@ public class TopicService {
         this.topicRepository = topicRepository;
         this.forumRepository = forumRepository;
     }
-    public Iterable<Topic> getAllTopics() {
+    public Iterable<Topic> GetAllTopics() {
         return topicRepository.findAll();
     }
-    public Iterable<Topic> getTopicsByForumId(Long forumId) {
+    public Iterable<Topic> GetTopicsByForumId(Long forumId) {
         return topicRepository.findByForumId(forumId);
     }
-    public Topic createTopic(Topic topic) {
-        var forum = forumRepository.findById(topic.getForum().getId())
+    public Topic CreateTopic(Topic topic) {
+        forumRepository.findById(topic.getForum().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
         return topicRepository.save(topic);
     }
 
-    public Topic updateTopic(Topic topic) {
-        var forum = forumRepository.findById(topic.getForum().getId())
+    public Optional<Topic> GetTopicById(Long id) {
+        return topicRepository.findById(id);
+    }
+
+    public Topic UpdateTopic(Topic topic) {
+        forumRepository.findById(topic.getForum().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
-        var top = topicRepository.findById(topic.getId())
+        topicRepository.findById(topic.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
         return topicRepository.save(topic);
     }
 
-    public void deleteTopic(Long id) {
-        var topic = topicRepository.findById(id)
+    public void DeleteTopic(Long id) {
+        topicRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR));
         topicRepository.deleteById(id);
     }

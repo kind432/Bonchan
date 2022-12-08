@@ -13,22 +13,22 @@ public class CommentController {
     }
 
     @GetMapping(path = "/{topicId}")
-    public Iterable<Comment> getCommentsByTopicId(@PathVariable Long topicId) {
+    public Iterable<Comment> GetCommentsByTopicId(@PathVariable Long topicId) {
         return commentService.getCommentsByTopicId(topicId);
     }
 
     @PostMapping(path = "/create")
-    public Comment createComment(@RequestBody Comment request) {
+    public Comment CreateComment(@RequestBody Comment request) {
         return commentService.createComment(request);
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteComment(@PathVariable Long id) {
+    public void DeleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
     }
 
     @PutMapping(path = "/update")
-    public Comment updateComment(@RequestBody Comment request) {
+    public Comment UpdateComment(@RequestBody Comment request) {
         return commentService.updateComment(request);
     }
 }

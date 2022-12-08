@@ -11,7 +11,6 @@ public class RoleService {
     }
 
     public Role GetRoleByName(ERole name) {
-        Role role = roleRepository.findByName(name).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        return role;
+        return roleRepository.findByName(name).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
     }
 }

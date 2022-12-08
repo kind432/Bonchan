@@ -3,6 +3,8 @@ package com.example.bonchan.topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path ="topics")
 public class TopicController {
@@ -13,26 +15,31 @@ public class TopicController {
     }
 
     @GetMapping(path = "/")
-    public Iterable<Topic> getAllTopics() {
-        return topicService.getAllTopics();
+    public Iterable<Topic> GetAllTopics() {
+        return topicService.GetAllTopics();
     }
     @GetMapping(path = "/{forumId}")
-    public Iterable<Topic> getTopicsByForumId(@PathVariable Long forumId) {
-        return topicService.getTopicsByForumId(forumId);
+    public Iterable<Topic> GetTopicsByForumId(@PathVariable Long forumId) {
+        return topicService.GetTopicsByForumId(forumId);
+    }
+
+    @GetMapping(path = "/getById/{id}")
+    public Optional<Topic> GetTopicId(@PathVariable Long id) {
+        return topicService.GetTopicById(id);
     }
 
     @PostMapping(path = "/create")
-    public Topic createTopic(@RequestBody Topic request) {
-        return topicService.createTopic(request);
+    public Topic CreateTopic(@RequestBody Topic request) {
+        return topicService.CreateTopic(request);
     }
 
     @DeleteMapping(path = "/delete/{id}")
-    public void deleteTopic(@PathVariable Long id) {
-        topicService.deleteTopic(id);
+    public void DeleteTopic(@PathVariable Long id) {
+        topicService.DeleteTopic(id);
     }
 
     @PutMapping(path = "/update")
-    public Topic updateTopic(@RequestBody Topic request) {
-        return topicService.updateTopic(request);
+    public Topic UpdateTopic(@RequestBody Topic request) {
+        return topicService.UpdateTopic(request);
     }
 }
